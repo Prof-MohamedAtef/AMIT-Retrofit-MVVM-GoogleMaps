@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
-import mo.ed.amit.dayten.network.Configs;
+import mo.ed.amit.dayten.network.util.Configs;
 import mo.ed.amit.dayten.network.retrofit.repo.ExclusiveOffersApiRepository;
 import mo.ed.amit.dayten.network.room.helper.AppDatabase;
 import mo.ed.amit.dayten.network.room.helper.AppExecutors;

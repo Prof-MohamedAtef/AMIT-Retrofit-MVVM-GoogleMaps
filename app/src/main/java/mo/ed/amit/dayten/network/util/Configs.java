@@ -1,4 +1,4 @@
-package mo.ed.amit.dayten.network;
+package mo.ed.amit.dayten.network.util;
 
 import android.app.Application;
 import android.content.Context;
