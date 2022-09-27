@@ -52,7 +52,12 @@ public class MyFragment extends Fragment {
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    OffersViewModel.insertData(entry);
+                                    long x= OffersViewModel.insertData(entry);
+                                    if (x<=0){
+                                        Log.e("Status: ","notInserted");
+                                    }else {
+                                        Log.e("Status: ","success");
+                                    }
                                 }
                             }).start();
                         }
