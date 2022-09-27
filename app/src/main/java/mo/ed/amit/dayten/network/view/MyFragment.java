@@ -16,7 +16,7 @@ import java.util.List;
 
 import mo.ed.amit.dayten.network.R;
 import mo.ed.amit.dayten.network.databinding.ActivityMainBinding;
-import mo.ed.amit.dayten.network.room.Entries;
+import mo.ed.amit.dayten.network.room.model.Entries;
 import mo.ed.amit.dayten.network.viewmodel.OfferViewModel;
 
 public class MyFragment extends Fragment {

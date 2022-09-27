@@ -1,12 +1,12 @@
-package mo.ed.amit.dayten.network.room;
+package mo.ed.amit.dayten.network.room.repo;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import mo.ed.amit.dayten.network.room.Entries;
+import mo.ed.amit.dayten.network.room.helper.AppDatabase;
+import mo.ed.amit.dayten.network.room.model.Entries;
 
 
 public class EntriesDatabaseRepository {

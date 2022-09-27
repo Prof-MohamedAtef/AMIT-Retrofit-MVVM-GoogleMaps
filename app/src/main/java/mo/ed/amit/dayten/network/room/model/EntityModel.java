@@ -1,4 +1,4 @@
-package mo.ed.amit.dayten.network.room;
+package mo.ed.amit.dayten.network.room.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

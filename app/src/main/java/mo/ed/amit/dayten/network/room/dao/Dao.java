@@ -1,11 +1,12 @@
-package mo.ed.amit.dayten.network.room;
+package mo.ed.amit.dayten.network.room.dao;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
+
+import mo.ed.amit.dayten.network.room.model.Entries;
 
 
 @androidx.room.Dao

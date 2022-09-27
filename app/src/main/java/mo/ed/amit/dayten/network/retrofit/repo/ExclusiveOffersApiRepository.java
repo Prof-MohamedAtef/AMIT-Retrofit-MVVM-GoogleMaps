@@ -1,4 +1,4 @@
-package mo.ed.amit.dayten.network.repo;
+package mo.ed.amit.dayten.network.retrofit.repo;
 
 import android.app.Application;
 import android.util.Log;
@@ -6,12 +6,10 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
-
-import mo.ed.amit.dayten.network.model.EntriesModelResponse;
 import mo.ed.amit.dayten.network.retrofit.CallService;
 import mo.ed.amit.dayten.network.retrofit.Http;
-import mo.ed.amit.dayten.network.room.EntityModel;
-import mo.ed.amit.dayten.network.room.Entries;
+import mo.ed.amit.dayten.network.room.model.EntityModel;
+import mo.ed.amit.dayten.network.room.model.Entries;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

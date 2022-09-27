@@ -1,4 +1,4 @@
-package mo.ed.amit.dayten.network.room;
+package mo.ed.amit.dayten.network.room.helper;
 
 import android.content.Context;
 
@@ -11,6 +11,9 @@ import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
+
+import mo.ed.amit.dayten.network.room.dao.Dao;
+import mo.ed.amit.dayten.network.room.model.Entries;
 
 
 @Database(entities = Entries.class, version = 1, exportSchema = false)

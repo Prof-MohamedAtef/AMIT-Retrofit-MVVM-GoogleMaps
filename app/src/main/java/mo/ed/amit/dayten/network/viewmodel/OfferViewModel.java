@@ -11,14 +11,12 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.ArrayList;
 import java.util.List;
 import mo.ed.amit.dayten.network.Configs;
-import mo.ed.amit.dayten.network.model.EntriesModelResponse;
-import mo.ed.amit.dayten.network.repo.ExclusiveOffersApiRepository;
-import mo.ed.amit.dayten.network.room.AppDatabase;
-import mo.ed.amit.dayten.network.room.AppExecutors;
-import mo.ed.amit.dayten.network.room.BasicApp;
-import mo.ed.amit.dayten.network.room.Dao;
-import mo.ed.amit.dayten.network.room.Entries;
-import mo.ed.amit.dayten.network.room.EntriesDatabaseRepository;
+import mo.ed.amit.dayten.network.retrofit.repo.ExclusiveOffersApiRepository;
+import mo.ed.amit.dayten.network.room.helper.AppDatabase;
+import mo.ed.amit.dayten.network.room.helper.AppExecutors;
+import mo.ed.amit.dayten.network.room.dao.Dao;
+import mo.ed.amit.dayten.network.room.model.Entries;
+import mo.ed.amit.dayten.network.room.repo.EntriesDatabaseRepository;
 
 public class OfferViewModel extends AndroidViewModel {
 
