@@ -10,5 +10,7 @@ public class Configs {
     public static Context mContext;
     public static MainActivity activity;
     public static String development_baseUrl="https://api.publicapis.org";
+    public static String talab_baseUrl="https://talabstation.org";
     public static final String MULTIPART = "multipart/form-data";
+
 }

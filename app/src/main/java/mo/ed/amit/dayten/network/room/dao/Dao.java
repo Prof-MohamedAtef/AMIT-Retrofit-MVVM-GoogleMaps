@@ -6,7 +6,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import mo.ed.amit.dayten.network.room.model.Entries;
+import mo.ed.amit.dayten.network.room.model.entries.Entries;
 
 
 @androidx.room.Dao

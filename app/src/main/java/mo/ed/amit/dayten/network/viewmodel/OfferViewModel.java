@@ -15,7 +15,7 @@ import mo.ed.amit.dayten.network.retrofit.repo.ExclusiveOffersApiRepository;
 import mo.ed.amit.dayten.network.room.helper.AppDatabase;
 import mo.ed.amit.dayten.network.room.helper.AppExecutors;
 import mo.ed.amit.dayten.network.room.dao.Dao;
-import mo.ed.amit.dayten.network.room.model.Entries;
+import mo.ed.amit.dayten.network.room.model.entries.Entries;
 import mo.ed.amit.dayten.network.room.repo.EntriesDatabaseRepository;
 
 public class OfferViewModel extends AndroidViewModel {

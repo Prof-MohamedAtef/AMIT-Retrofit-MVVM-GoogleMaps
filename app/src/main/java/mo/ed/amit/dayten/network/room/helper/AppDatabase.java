@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import mo.ed.amit.dayten.network.room.dao.Dao;
-import mo.ed.amit.dayten.network.room.model.Entries;
+import mo.ed.amit.dayten.network.room.model.entries.Entries;
 
 
 @Database(entities = Entries.class, version = 1, exportSchema = false)

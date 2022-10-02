@@ -30,7 +30,7 @@ public class Http {
                 .create();
 
 //        String bUrl = Constants.baseUrl;
-        String bUrl = Configs.development_baseUrl;
+        String bUrl = Configs.talab_baseUrl;
         retrofit = new Retrofit.Builder()
                 .baseUrl(bUrl)
                 .client(getHeader())

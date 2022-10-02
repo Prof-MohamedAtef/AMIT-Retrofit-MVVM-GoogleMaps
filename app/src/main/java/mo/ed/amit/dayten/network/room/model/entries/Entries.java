@@ -1,4 +1,4 @@
-package mo.ed.amit.dayten.network.room.model;
+package mo.ed.amit.dayten.network.room.model.entries;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

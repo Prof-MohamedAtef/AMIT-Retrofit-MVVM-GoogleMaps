@@ -6,7 +6,7 @@ import androidx.lifecycle.MediatorLiveData;
 import java.util.List;
 
 import mo.ed.amit.dayten.network.room.helper.AppDatabase;
-import mo.ed.amit.dayten.network.room.model.Entries;
+import mo.ed.amit.dayten.network.room.model.entries.Entries;
 
 
 public class EntriesDatabaseRepository {
