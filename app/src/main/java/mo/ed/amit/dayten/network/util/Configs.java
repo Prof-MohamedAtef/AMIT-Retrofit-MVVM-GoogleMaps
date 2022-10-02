@@ -13,4 +13,5 @@ public class Configs {
     public static String talab_baseUrl="https://talabstation.org";
     public static final String MULTIPART = "multipart/form-data";
 
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 1001;
 }
