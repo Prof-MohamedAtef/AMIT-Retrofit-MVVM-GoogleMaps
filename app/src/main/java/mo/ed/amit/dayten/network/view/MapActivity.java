@@ -48,6 +48,7 @@ import mo.ed.amit.dayten.network.databinding.ActivityMapBinding;
 import mo.ed.amit.dayten.network.util.Configs;
 import mo.ed.amit.dayten.network.util.MapHelper;
 import mo.ed.amit.dayten.network.util.VerifyConnection;
+import mo.ed.amit.dayten.network.view.adapter.ProfilesRecyclerAdapter;
 import mo.ed.amit.dayten.network.view.fragment.ProfilesFragment;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
@@ -56,7 +57,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         MapHelper.OnAddressPrintReady ,
-        MapHelper.OnServiceUnavailable {
+        MapHelper.OnServiceUnavailable,
+        ProfilesRecyclerAdapter.OnProfileSelected {
 
     private static int UPDATE_INTERVAL = 10000;
     private static int FATEST_INTERVAL = 5000;
@@ -83,7 +85,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Configs.MapActivity=MapActivity.this;
         binding= DataBindingUtil.setContentView(this, R.layout.activity_map);
 
         parentLayout = findViewById(android.R.id.content);
@@ -119,6 +121,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             googlePlex = returnCameraPosition(String.valueOf(mLastLocation.getLatitude()), String.valueOf(mLastLocation.getLongitude()), 19.0f);
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 1500, null);
             mMap.addMarker(markerOptions());
+        } else {
+            Log.d("ERROR", "Cannot get Your Location");
+            retryRequestLocationUpdates();
+        }
+    }
+
+    private void animateCamera(GoogleMap mGoogleMap, String latitude, String longitude) {
+        if (mLastLocation != null) {
+            googlePlex = returnCameraPosition(String.valueOf(latitude), String.valueOf(longitude), 19.0f);
+            mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 1500, null);
+            mGoogleMap.addMarker(markerOptions());
         } else {
             Log.d("ERROR", "Cannot get Your Location");
             retryRequestLocationUpdates();
@@ -474,5 +487,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }else {
             ShowSnackBar(parentLayout,msg);
         }
+    }
+
+    @Override
+    public void onProfileItemSelection(String latitude, String longitude) {
+        animateCamera(mGoogleMap,latitude, longitude);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // TODO: 10/2/2022 best practice
+        Configs.MapActivity=null;
     }
 }

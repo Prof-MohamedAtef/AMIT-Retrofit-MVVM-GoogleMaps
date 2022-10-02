@@ -25,4 +25,5 @@
     <color name="item_name">#535353</color>
     <color name="description">#a9a9a9</color>
     <color name="white">#FFFFFF</color>
+    <color name="gold">#FFB600</color>
 </resources>
