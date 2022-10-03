@@ -1,5 +1,6 @@
 package mo.ed.amit.dayten.network.view;
 
+import static mo.ed.amit.dayten.network.util.MapHelper.displayMarker;
 import static mo.ed.amit.dayten.network.util.MapHelper.markerOptions;
 import static mo.ed.amit.dayten.network.util.MapHelper.returnCameraPosition;
 import static mo.ed.amit.dayten.network.util.MapHelper.statusCheck;
@@ -16,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -132,10 +134,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .tilt(45).build();
             mGoogleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
-            mUserMarker = mGoogleMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location))
-                    .position(latLong)
-                    .title(driverName));
+            displayMarker(mUserMarker, mGoogleMap, driverName, latLong);
+            mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+                @Override
+                public void onCameraMove() {
+                    displayMarker(mUserMarker, mGoogleMap, driverName, latLong);
+                }
+            });
         } else {
             Log.d("ERROR", "Cannot get Your Location");
             retryRequestLocationUpdates();
