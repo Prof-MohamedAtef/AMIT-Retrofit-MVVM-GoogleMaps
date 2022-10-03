@@ -177,19 +177,21 @@ public class MapHelper {
         return left;
     }
 
-    public static void displayMarker(final Marker mUserMarker, GoogleMap mGoogleMap, String driverName, LatLng latLong) {
+    public static Marker displayMarker(final Marker mUserMarker, GoogleMap mGoogleMap, String driverName, LatLng latLong, int drawable) {
+        final Marker[] marker = {mUserMarker};
         Handler handler=new Handler();
         Runnable runnable=new Runnable() {
             @Override
             public void run() {
-                Marker marker= mUserMarker;
-                marker = mGoogleMap.addMarker(new MarkerOptions()
+
+                marker[0] = mGoogleMap.addMarker(new MarkerOptions()
                         .position(latLong)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.taxi))
+                        .icon(BitmapDescriptorFactory.fromResource(drawable))
                         .title(driverName));
             }
         };
         handler.postDelayed(runnable, 1000);
+        return marker[0];
     }
 
     public interface OnServiceUnavailable{

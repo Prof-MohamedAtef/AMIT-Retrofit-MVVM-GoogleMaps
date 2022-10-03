@@ -17,7 +17,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -32,7 +31,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -95,7 +93,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.e("CenterCamera: ", "Clicked me");
                 if (mLastLocation != null) {
                     if (mGoogleMap!=null){
-                        animateCamera(mGoogleMap);
+                        animateCameraMyLocation(mGoogleMap);
                     }
                 }
             }
@@ -114,11 +112,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-    private void animateCamera(GoogleMap mMap) {
+    private void animateCameraMyLocation(GoogleMap mMap) {
         if (mLastLocation != null) {
             googlePlex = returnCameraPosition(String.valueOf(mLastLocation.getLatitude()), String.valueOf(mLastLocation.getLongitude()), 19.0f);
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 1500, null);
-            mMap.addMarker(markerOptions());
+            displayMarker(mUserMarker,mMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
+            mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+                @Override
+                public void onCameraMove() {
+                    mGoogleMap.clear();
+                    displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                }
+            });
         } else {
             Log.d("ERROR", "Cannot get Your Location");
             retryRequestLocationUpdates();
@@ -134,11 +139,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .tilt(45).build();
             mGoogleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
-            displayMarker(mUserMarker, mGoogleMap, driverName, latLong);
+            displayMarker(mUserMarker, mGoogleMap, driverName, latLong, R.drawable.taxi);
             mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
                 @Override
                 public void onCameraMove() {
-                    displayMarker(mUserMarker, mGoogleMap, driverName, latLong);
+                    mGoogleMap.clear();
+                    displayMarker(mUserMarker, mGoogleMap, driverName, latLong, R.drawable.taxi);
                 }
             });
         } else {
@@ -318,27 +324,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (mUserMarker != null) {
                 mUserMarker.remove();// remove already marker
                 if (mGoogleMap != null) {
-                    mUserMarker = mGoogleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(latitude, longitude))
-                            .title("Your Location"));
 
                     // Move Camera To this position
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 19.0f));
                     // draw animation rotate marker
+                    displayMarker(mUserMarker,mGoogleMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
+                    mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+                        @Override
+                        public void onCameraMove() {
+                            mGoogleMap.clear();
+                            displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                        }
+                    });
 //                            rotateMarker(mCurrent, -360, mMap);
                 }
             } else {
                 if (mGoogleMap != null) {
-                    mUserMarker = mGoogleMap.addMarker(new MarkerOptions()
-//                                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.scooter))
-                            .position(new LatLng(latitude, longitude))
-//                                                    .title("You"));
-                            .title("Your Location"));
-
                     // Move Camera To this position
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 19.0f));
                     // draw animation rotate marker
 //                            rotateMarker(mCurrent, -360, mMap);
+                    displayMarker(mUserMarker,mGoogleMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
+                    mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+                        @Override
+                        public void onCameraMove() {
+                            mGoogleMap.clear();
+                            displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                        }
+                    });
                 }
             }
             if (verifyConnection.isConnected()){
@@ -411,6 +424,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             mLastLocation = location;
                             double currentLatitude = location.getLatitude();
                             double currentLongitude = location.getLongitude();
+                            mUserMarker=displayMarker(mUserMarker, mGoogleMap, "MyLocation", new LatLng(currentLatitude,currentLongitude),R.drawable.me);
                         } else {
                             ShowSnackBar(parentLayout, getResources().getString(R.string.internet_location_disabled));
                         }
@@ -473,18 +487,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap=googleMap;
         mMapStyleOptions= MapStyleOptions.loadRawResourceStyle(getApplicationContext(),R.raw.map_style);
         mGoogleMap.setMapStyle(mMapStyleOptions);
-        LatLng sydney = new LatLng(-34, 151);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        animateCamera(mGoogleMap);
-
+        animateCameraMyLocation(mGoogleMap);
         mGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
                 Log.d("Camera postion change" + "", cameraPosition + "");
                 mCenterLatLong = cameraPosition.target;
-                mGoogleMap.clear();
+//                mGoogleMap.clear();
                 try {
                     mLastLocation.setLatitude(mCenterLatLong.latitude);
                     mLastLocation.setLongitude(mCenterLatLong.longitude);
