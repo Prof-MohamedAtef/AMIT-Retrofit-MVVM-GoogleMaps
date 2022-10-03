@@ -1,6 +1,8 @@
 package mo.ed.amit.dayten.network.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +79,9 @@ public class ProfilesRecyclerAdapter extends RecyclerView.Adapter<ProfilesRecycl
                         public void onClick(View v) {
                             String Phone=profile.getPhoneNumber();
                             // TODO: 10/2/2022 show call intent (to make a call ), task 1
+                            Intent callIntent = new Intent(Intent.ACTION_CALL);
+                            callIntent.setData(Uri.parse("tel:" + Phone));
+                            mContext.startActivity(callIntent);
                         }
                     });
 
