@@ -1,7 +1,9 @@
 package mo.ed.amit.dayten.network.view.adapter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mo.ed.amit.dayten.network.R;
 import mo.ed.amit.dayten.network.room.model.profiles.Profile;
+import mo.ed.amit.dayten.network.util.Configs;
 import mo.ed.amit.dayten.network.util.MapHelper;
 import mo.ed.amit.dayten.network.view.MapActivity;
 
@@ -81,7 +86,27 @@ public class ProfilesRecyclerAdapter extends RecyclerView.Adapter<ProfilesRecycl
                             // TODO: 10/2/2022 show call intent (to make a call ), task 1
                             Intent callIntent = new Intent(Intent.ACTION_CALL);
                             callIntent.setData(Uri.parse("tel:" + Phone));
-                            mContext.startActivity(callIntent);
+                            if (ContextCompat.checkSelfPermission(mContext,
+                                    Manifest.permission.CALL_PHONE)
+                                    != PackageManager.PERMISSION_GRANTED) {
+
+                                ActivityCompat.requestPermissions(mActivity,
+                                        new String[]{Manifest.permission.CALL_PHONE},
+                                        Configs.MY_PERMISSIONS_REQUEST_CALL_PHONE);
+
+                                // MY_PERMISSIONS_REQUEST_CALL_PHONE is an
+                                // app-defined int constant. The callback method gets the
+                                // result of the request.
+                            } else {
+                                //You already have permission
+                                try {
+                                    mContext.startActivity(callIntent);
+                                } catch(SecurityException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
                         }
                     });
 

@@ -7,6 +7,7 @@ import mo.ed.amit.dayten.network.view.MainActivity;
 import mo.ed.amit.dayten.network.view.MapActivity;
 
 public class Configs {
+    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 5555;
     public static Application application;
     public static Context mContext;
     public static MainActivity activity;

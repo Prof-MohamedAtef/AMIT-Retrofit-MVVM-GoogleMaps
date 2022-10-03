@@ -408,6 +408,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     }
                 });
             }
+        }else if(requestCode==Configs.MY_PERMISSIONS_REQUEST_CALL_PHONE){
+            if (grantResults.length>0
+                &&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(getApplicationContext(),"Calls are allowed!", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(getApplicationContext(),"Calls are not allowed!", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
