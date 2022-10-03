@@ -6,6 +6,8 @@
 ![googlemap](https://user-images.githubusercontent.com/16711483/193675316-302e5f6f-0983-4447-95b6-e5d67fa64514.png)
 ![googlemaps](https://user-images.githubusercontent.com/16711483/193675325-95e974fd-a29a-41f6-abba-4fe43a1a429d.png)
 ![google_map_taxi_passenger_recyclerview](https://user-images.githubusercontent.com/16711483/193675333-b6324f60-49b6-4101-b9c8-baa320837c8e.png)
+![google_maps_multiple_markers](https://user-images.githubusercontent.com/16711483/193693809-87d0a929-10db-4404-9f16-104ff3bff2ec.png)
+
 
 # AMIT-Retrofit-MVVM
 creates: 
