@@ -73,6 +73,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private CameraPosition googlePlex;
     private Location mLastLocation;
     private Marker mUserMarker;
+    private Marker mTaxiMarker;
     private GoogleMap mGoogleMap;
     private MapStyleOptions mMapStyleOptions;
     private boolean permissionGranted;
@@ -116,12 +117,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (mLastLocation != null) {
             googlePlex = returnCameraPosition(String.valueOf(mLastLocation.getLatitude()), String.valueOf(mLastLocation.getLongitude()), 19.0f);
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 1500, null);
-            displayMarker(mUserMarker,mMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
+            mUserMarker=displayMarker(mUserMarker,mMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
             mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
                 @Override
                 public void onCameraMove() {
-                    mGoogleMap.clear();
-                    displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                    if (mUserMarker!=null) {
+                        mUserMarker.remove();
+                        displayMarker(mUserMarker, mGoogleMap, "MyLocation", new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), R.drawable.me);
+                    }
                 }
             });
         } else {
@@ -139,12 +142,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .tilt(45).build();
             mGoogleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
-            displayMarker(mUserMarker, mGoogleMap, driverName, latLong, R.drawable.taxi);
+            mTaxiMarker=displayMarker(mTaxiMarker, mGoogleMap, driverName, latLong, R.drawable.taxi);
             mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
                 @Override
                 public void onCameraMove() {
-                    mGoogleMap.clear();
-                    displayMarker(mUserMarker, mGoogleMap, driverName, latLong, R.drawable.taxi);
+                    if(mTaxiMarker!=null){
+                        mTaxiMarker.remove();
+                        displayMarker(mTaxiMarker, mGoogleMap, driverName, latLong, R.drawable.taxi);
+                    }
                 }
             });
         } else {
@@ -328,12 +333,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     // Move Camera To this position
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 19.0f));
                     // draw animation rotate marker
-                    displayMarker(mUserMarker,mGoogleMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
+                    mUserMarker=displayMarker(mUserMarker,mGoogleMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
                     mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
                         @Override
                         public void onCameraMove() {
-                            mGoogleMap.clear();
-                            displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                            if (mUserMarker!=null){
+                             mUserMarker.remove();
+                                displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                            }
                         }
                     });
 //                            rotateMarker(mCurrent, -360, mMap);
@@ -344,12 +351,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 19.0f));
                     // draw animation rotate marker
 //                            rotateMarker(mCurrent, -360, mMap);
-                    displayMarker(mUserMarker,mGoogleMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
+                    mUserMarker=displayMarker(mUserMarker,mGoogleMap,"MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),R.drawable.me);
                     mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
                         @Override
                         public void onCameraMove() {
-                            mGoogleMap.clear();
-                            displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                            if (mUserMarker!=null){
+                                mUserMarker.remove();
+                                displayMarker(mUserMarker, mGoogleMap, "MyLocation",new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), R.drawable.me);
+                            }
                         }
                     });
                 }
@@ -424,7 +433,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             mLastLocation = location;
                             double currentLatitude = location.getLatitude();
                             double currentLongitude = location.getLongitude();
-                            mUserMarker=displayMarker(mUserMarker, mGoogleMap, "MyLocation", new LatLng(currentLatitude,currentLongitude),R.drawable.me);
+//                            mUserMarker=displayMarker(mUserMarker, mGoogleMap, "MyLocation", new LatLng(currentLatitude,currentLongitude),R.drawable.me);
                         } else {
                             ShowSnackBar(parentLayout, getResources().getString(R.string.internet_location_disabled));
                         }
