@@ -185,6 +185,7 @@ public class MapHelper {
                 Marker marker= mUserMarker;
                 marker = mGoogleMap.addMarker(new MarkerOptions()
                         .position(latLong)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.taxi))
                         .title(driverName));
             }
         };
