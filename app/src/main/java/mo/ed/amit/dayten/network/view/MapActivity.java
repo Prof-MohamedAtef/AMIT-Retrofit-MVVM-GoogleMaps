@@ -1,7 +1,5 @@
 package mo.ed.amit.dayten.network.view;
 
-import static mo.ed.amit.dayten.network.util.MapHelper.filterThreeSyllable;
-import static mo.ed.amit.dayten.network.util.MapHelper.getStreetName;
 import static mo.ed.amit.dayten.network.util.MapHelper.markerOptions;
 import static mo.ed.amit.dayten.network.util.MapHelper.returnCameraPosition;
 import static mo.ed.amit.dayten.network.util.MapHelper.statusCheck;
@@ -17,7 +15,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -40,8 +38,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.Map;
 
 import mo.ed.amit.dayten.network.R;
 import mo.ed.amit.dayten.network.databinding.ActivityMapBinding;
@@ -127,11 +123,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private void animateCamera(GoogleMap mGoogleMap, String latitude, String longitude) {
+    private void animateCameraToDriver(GoogleMap mGoogleMap, String latitude, String longitude, String driverName) {
         if (mLastLocation != null) {
-            googlePlex = returnCameraPosition(String.valueOf(latitude), String.valueOf(longitude), 19.0f);
-            mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 1500, null);
-            mGoogleMap.addMarker(markerOptions());
+            LatLng latLong = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLong).zoom(19.0f)
+                    .bearing(0)
+                    .tilt(45).build();
+            mGoogleMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+            mUserMarker = mGoogleMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location))
+                    .position(latLong)
+                    .title(driverName));
         } else {
             Log.d("ERROR", "Cannot get Your Location");
             retryRequestLocationUpdates();
@@ -497,8 +501,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onProfileItemSelection(String latitude, String longitude) {
-        animateCamera(mGoogleMap,latitude, longitude);
+    public void onProfileItemSelection(String latitude, String longitude, String driverName) {
+        animateCameraToDriver(mGoogleMap,latitude, longitude, driverName);
     }
 
 

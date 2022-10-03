@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -40,13 +42,7 @@ public class MapHelper {
     }
 
     public static MarkerOptions markerOptions(){
-//        new MarkerOptions()
-//                .title(userEntity.getPlaceTitle())
-//                .snippet(userEntity.getSnippet())
-//                .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_location_pin_teal));
-
         MarkerOptions options=new MarkerOptions();
-//        options.position(new LatLng(Double.parseDouble(userEntity.getLatitude()), Double.parseDouble(userEntity.getLongitude())))
         options.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location));
         options.title("kfc");
         return options;
@@ -54,6 +50,7 @@ public class MapHelper {
 
     public static LatLng returnLatLong(String lat, String lng) {
         LatLng latLng=new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+        Log.e("LatLng:", "\n"+latLng.latitude+"\n"+latLng.longitude);
         return latLng;
     }
 

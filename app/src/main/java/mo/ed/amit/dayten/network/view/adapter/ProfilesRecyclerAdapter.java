@@ -73,7 +73,7 @@ public class ProfilesRecyclerAdapter extends RecyclerView.Adapter<ProfilesRecycl
                             String Lat=profile.getLatitude();
                             String Long=profile.getLongitude();
                             if (Lat!=null&&Long!=null){
-                                ((OnProfileSelected)mActivity).onProfileItemSelection(Lat,Long);
+                                ((OnProfileSelected)mActivity).onProfileItemSelection(Lat,Long, profile.getName());
                             }
                         }
                     });
@@ -135,6 +135,6 @@ public class ProfilesRecyclerAdapter extends RecyclerView.Adapter<ProfilesRecycl
 
 
     public interface OnProfileSelected{
-        public void onProfileItemSelection(String latitude, String longitude);
+        public void onProfileItemSelection(String latitude, String longitude, String driverName);
     }
 }
