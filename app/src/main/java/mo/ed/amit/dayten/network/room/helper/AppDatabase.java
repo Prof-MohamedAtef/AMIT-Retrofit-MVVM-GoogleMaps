@@ -14,9 +14,10 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import mo.ed.amit.dayten.network.room.dao.Dao;
 import mo.ed.amit.dayten.network.room.model.entries.Entries;
+import mo.ed.amit.dayten.network.room.model.profiles.Profile;
 
 
-@Database(entities = Entries.class, version = 1, exportSchema = false)
+@Database(entities = {Entries.class, Profile.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -48,6 +49,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 block of code
                  */
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build();
                 AppDatabase appDatabase=AppDatabase.getInstance(context,executors);

@@ -60,7 +60,6 @@ public class Http {
                 .create(object);
     }
 
-
     private static OkHttpClient getHeader() {
         HttpLoggingInterceptor logging=new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override

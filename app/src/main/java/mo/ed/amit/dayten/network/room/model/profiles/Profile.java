@@ -27,10 +27,9 @@ public class Profile {
     @SerializedName("email")
     private String mEmail;
 
-    @NonNull
     @ColumnInfo(name = "email_verified_at")
     @SerializedName("email_verified_at")
-    private Object mEmailVerifiedAt;
+    private String mEmailVerifiedAt;
 
     @NonNull
     @ColumnInfo(name = "eta")
@@ -127,12 +126,11 @@ public class Profile {
         mEmail = email;
     }
 
-    @NonNull
-    public Object getEmailVerifiedAt() {
+    public String getEmailVerifiedAt() {
         return mEmailVerifiedAt;
     }
 
-    public void setEmailVerifiedAt(Object emailVerifiedAt) {
+    public void setEmailVerifiedAt(String emailVerifiedAt) {
         mEmailVerifiedAt = emailVerifiedAt;
     }
 

@@ -1,6 +1,7 @@
 package mo.ed.amit.dayten.network.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import mo.ed.amit.dayten.network.R;
 import mo.ed.amit.dayten.network.databinding.ProfilesFragmentBinding;
 import mo.ed.amit.dayten.network.room.model.profiles.Profile;
 import mo.ed.amit.dayten.network.util.Configs;
+import mo.ed.amit.dayten.network.util.VerifyConnection;
 import mo.ed.amit.dayten.network.view.adapter.ProfilesRecyclerAdapter;
 import mo.ed.amit.dayten.network.viewmodel.ProfileViewModel;
 
@@ -29,6 +31,7 @@ public class ProfilesFragment extends Fragment {
 
     private ProfilesFragmentBinding binding;
     private ProfileViewModel profilesViewModel;
+    private VerifyConnection verifyConnection;
 
     public static ProfilesFragment newInstance(){
         return new ProfilesFragment();
@@ -45,12 +48,45 @@ public class ProfilesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profilesViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        profilesViewModel.getApiProfiles().observe(getViewLifecycleOwner(), new Observer<List<Profile>>() {
+        verifyConnection=new VerifyConnection(getActivity());
+        if(verifyConnection.isConnected()){
+            profilesViewModel.getApiProfiles().observe(getViewLifecycleOwner(), new Observer<List<Profile>>() {
+                @Override
+                public void onChanged(List<Profile> profiles) {
+                    if (profiles!=null) {
+                        int delete= profilesViewModel.deleteData();
+                        if (delete>=0) {
+                            for (Profile profile: profiles){
+                                long insert= profilesViewModel.insertData(profile);
+                                if (insert>0){
+                                    Log.e("RecordNumber","inserted: "+insert);
+                                }
+                            }
+                        }
+
+//                        showRecyclerView(profiles);
+                        // insert in a Background Thread
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//
+//                            }
+//                        }).start();
+                    }
+                }
+            });
+        }else {
+            getOfflineData();
+        }
+        getOfflineData();
+    }
+
+    private void getOfflineData(){
+        // get Live Data from Room (Database)
+        profilesViewModel.getLiveDataList().observe(getViewLifecycleOwner(), new Observer<List<Profile>>() {
             @Override
             public void onChanged(List<Profile> profiles) {
-                if (profiles!=null) {
-                    showRecyclerView(profiles);
-                }
+                showRecyclerView(profiles);
             }
         });
     }
