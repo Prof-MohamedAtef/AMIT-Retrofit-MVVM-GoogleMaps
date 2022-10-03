@@ -5,25 +5,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MyLayout"
     android:background="@drawable/profile_background_shape"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     android:padding="15dp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilePic"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="15dp"
         android:src="@drawable/atef"/>
     <TextView
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:id="@+id/tvUsername"
         app:layout_constraintTop_toTopOf="@id/profilePic"
         app:layout_constraintStart_toEndOf="@id/profilePic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mohamed Atef"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/colorBlack"/>
     <ImageView
         android:layout_marginTop="5dp"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Call Driver"
-        android:textSize="14sp"
+        android:textSize="10sp"
         android:padding="20dp"
         android:textStyle="bold"
         android:id="@+id/btnCall"

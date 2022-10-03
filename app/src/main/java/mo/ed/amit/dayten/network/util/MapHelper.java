@@ -40,13 +40,13 @@ public class MapHelper {
     }
 
     public static MarkerOptions markerOptions(){
-        new MarkerOptions()
-                .title(userEntity.getPlaceTitle())
-                .snippet(userEntity.getSnippet())
-                .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_location_pin_teal));
+//        new MarkerOptions()
+//                .title(userEntity.getPlaceTitle())
+//                .snippet(userEntity.getSnippet())
+//                .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_location_pin_teal));
 
         MarkerOptions options=new MarkerOptions();
-        options.position(new LatLng(Double.parseDouble(userEntity.getLatitude()), Double.parseDouble(userEntity.getLongitude())))
+//        options.position(new LatLng(Double.parseDouble(userEntity.getLatitude()), Double.parseDouble(userEntity.getLongitude())))
         options.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location));
         options.title("kfc");
         return options;
