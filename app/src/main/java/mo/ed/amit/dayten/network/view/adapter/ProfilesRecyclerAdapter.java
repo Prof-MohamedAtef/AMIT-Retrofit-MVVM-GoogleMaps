@@ -55,6 +55,9 @@ public class ProfilesRecyclerAdapter extends RecyclerView.Adapter<ProfilesRecycl
                     TextView type=(TextView) placeViewHolder.itemView.findViewById(R.id.tvType);
                     RatingBar ratingBar=(RatingBar) placeViewHolder.itemView.findViewById(R.id.ratingBar);
                     TextView distanceVal=(TextView) placeViewHolder.itemView.findViewById(R.id.distanceVal);
+                    TextView priceVal=(TextView) placeViewHolder.itemView.findViewById(R.id.tvPriceVal);
+                    TextView etaVal=(TextView) placeViewHolder.itemView.findViewById(R.id.tvETAVal);
+                    TextView paymentVal=(TextView) placeViewHolder.itemView.findViewById(R.id.tvPaymentVal);
 
                     ConstraintLayout MyLayout=(ConstraintLayout) placeViewHolder.itemView.findViewById(R.id.MyLayout);
                     MyLayout.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +65,9 @@ public class ProfilesRecyclerAdapter extends RecyclerView.Adapter<ProfilesRecycl
                         public void onClick(View v) {
                             String Lat=profile.getLatitude();
                             String Long=profile.getLongitude();
-                            ((OnProfileSelected)mActivity).onProfileItemSelection(Lat,Long);
+                            if (Lat!=null&&Long!=null){
+                                ((OnProfileSelected)mActivity).onProfileItemSelection(Lat,Long);
+                            }
                         }
                     });
 
@@ -79,6 +84,9 @@ public class ProfilesRecyclerAdapter extends RecyclerView.Adapter<ProfilesRecycl
                     distanceVal.setText(profile.getDistance());
                     username.setText(profile.getName());
                     type.setText(profile.getTransportType());
+                    priceVal.setText(profile.getPrice());
+                    etaVal.setText(profile.getEta());
+                    paymentVal.setText(profile.getPaymentType());
                 }
             }
         }

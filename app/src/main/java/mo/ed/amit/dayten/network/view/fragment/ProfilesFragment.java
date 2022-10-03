@@ -58,7 +58,7 @@ public class ProfilesFragment extends Fragment {
     private void showRecyclerView(List<Profile> profiles) {
         ProfilesRecyclerAdapter adapter=new ProfilesRecyclerAdapter(getActivity(), profiles, false, Configs.MapActivity);
         adapter.notifyDataSetChanged();
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         binding.rvProfiles.setLayoutManager(mLayoutManager);
         binding.rvProfiles.setItemAnimator(new DefaultItemAnimator());
         binding.rvProfiles.setAdapter(adapter);

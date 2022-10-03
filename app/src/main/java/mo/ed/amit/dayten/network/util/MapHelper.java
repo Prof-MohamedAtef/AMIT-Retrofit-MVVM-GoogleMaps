@@ -40,14 +40,21 @@ public class MapHelper {
     }
 
     public static MarkerOptions markerOptions(){
+        new MarkerOptions()
+                .title(userEntity.getPlaceTitle())
+                .snippet(userEntity.getSnippet())
+                .icon(bitmapDescriptorFromVector(getActivity(),R.drawable.ic_location_pin_teal));
+
         MarkerOptions options=new MarkerOptions();
+        options.position(new LatLng(Double.parseDouble(userEntity.getLatitude()), Double.parseDouble(userEntity.getLongitude())))
         options.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location));
         options.title("kfc");
         return options;
     }
 
     public static LatLng returnLatLong(String lat, String lng) {
-        return new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+        LatLng latLng=new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+        return latLng;
     }
 
     public static void getAddressPrint(Context context, Location mLastLocation, OnServiceUnavailable onServiceUnavailable, boolean b) {

@@ -25,4 +25,9 @@
             ?android:attr/colorBackground
         </item>
     </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/gray</item>
+        <item name="colorControlActivated">@color/gold</item>
+    </style>
 </resources>
