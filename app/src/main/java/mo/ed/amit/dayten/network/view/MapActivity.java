@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 
+import mo.ed.amit.dayten.network.BuildConfig;
 import mo.ed.amit.dayten.network.R;
 import mo.ed.amit.dayten.network.databinding.ActivityMapBinding;
 import mo.ed.amit.dayten.network.util.Configs;
@@ -84,7 +85,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         Configs.MapActivity=MapActivity.this;
         binding= DataBindingUtil.setContentView(this, R.layout.activity_map);
-
+        String ApiKey=BuildConfig.MAPS_API_KEY;
         parentLayout = findViewById(android.R.id.content);
         verifyConnection=new VerifyConnection(getApplicationContext());
 
